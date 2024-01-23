@@ -1,24 +1,32 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+const mongoose = require("mongoose");
+require("dotenv").config();
+const userDB = process.env.DB_USER;
+const passDB = process.env.DB_PASS;
 
+const getConnectionURI = () => {
+  let connectionURI;
+  connectionURI = process.env.DB_URI;
 
-const getConnectionURI = ()=>{
-    let connectionURI;
-    connectionURI = process.env.DB_URI
+  connectionURI = connectionURI.replace("<username>", userDB);
+  connectionURI = connectionURI.replace("<password>", passDB);
 
-    connectionURI = connectionURI.replace('<username>',process.env.DB_USER)
-    connectionURI = connectionURI.replace('<password>',process.env.DB_PASSWORD)
-
-    return connectionURI
-}
-
-
-const conncectDB = async()=>{
-    console.log("Connecting to database....");
+  return connectionURI;
+};
+const connectDB = async () => {
+  try {
     const uri = getConnectionURI();
-    await mongoose.connect(uri,{dbName:'ParcelDB'})
+    await mongoose.connect(uri, {
+      dbName: process.env.DB_NAME,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err.message);
+    process.exit(1); // Exit the process with an error code
+  }
+};
 
-    console.log("Connected to database");
-}
+// binarymasters110@gmail.com
+// pass: binary110masters
 
-module.exports = conncectDB
+module.exports = connectDB;
