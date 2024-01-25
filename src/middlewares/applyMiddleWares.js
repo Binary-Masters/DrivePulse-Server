@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 
 const applyMiddleWares = (app) => {
   app.use(express.json());
