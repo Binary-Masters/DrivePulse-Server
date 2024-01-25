@@ -9,6 +9,7 @@ const applyMiddleWares = (app) => {
     origin: [
       'https://drive-pulse-client.vercel.app',
       'https://drive-pulse-client-o4xyvfe9b-binarymasters-projects.vercel.app',
+      'http://localhost:3000',
       'http://localhost:3001'
   ],
   credentials: true
