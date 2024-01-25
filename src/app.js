@@ -26,11 +26,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-const main = async () => {
-  await connectDB();
-  app.listen(port, async (req, res) => {
-    console.log(`Drive Pulse Server Is Running On : http://localhost:${port}`);
-  });
-};
+// const main = async () => {
+//   await connectDB();
+//   app.listen(port, async (req, res) => {
+//     console.log(`Drive Pulse Server Is Running On : http://localhost:${port}`);
+//   });
+// };
 
-main();
+// main();
+
+
+module.exports = app;

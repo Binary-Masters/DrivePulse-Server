@@ -4,6 +4,13 @@ const cors = require("cors");
 const applyMiddleWares = (app) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use(cors());
+  app.use(cors({
+    origin: [
+      'https://drive-pulse-client.vercel.app',
+      'https://drive-pulse-client-o4xyvfe9b-binarymasters-projects.vercel.app',
+      'http://localhost:3001'
+  ],
+  credentials: true
+  }));
 };
 module.exports = applyMiddleWares;
