@@ -26,7 +26,5 @@ const connectDB = async () => {
   }
 };
 
-// binarymasters110@gmail.com
-// pass: binary110masters
 
 module.exports = connectDB;
