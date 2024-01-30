@@ -5,13 +5,13 @@ const conncectDB = require("./src/db/connectDB");
 
 const server = http.createServer(app);
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 
 const main = async () => {
-	await conncectDB();
-	server.listen(port, () => {
-		console.log(`Parcel management server is running on port ${port}`);
-	});
+  await conncectDB();
+  server.listen(port, () => {
+    console.log(`DrivePulse server is running on port ${port}`);
+  });
 };
 
 main();
