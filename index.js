@@ -10,7 +10,7 @@ const port = process.env.PORT || 3001;
 const main = async () => {
     await conncectDB();
     server.listen(port, () => {
-        console.log(`Parcel management server is running on port ${port}`);
+        console.log(`Drive pulse server is running on port ${port}`);
     })
 }
 
