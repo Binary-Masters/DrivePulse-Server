@@ -5,11 +5,16 @@ const postFiles = async(req, res, next) => {
 	
 	// Spliting path string by directory
 	const pathArr = fileMetadata.fullPath.split("/")
-	const parentDirectory = pathArr[pathArr.length - 2];
+	fileMetadata.rootDirectory = pathArr[0] + "/";
+	
+	pathArr.pop() // Removing current node
+	if(fileMetadata.type === "folder") pathArr.pop()
+	pathArr.push("")
+	const parentPath = pathArr.join("/");
 	
 	// Assigning parent directory and root directory
-	fileMetadata.parentDirectory = parentDirectory;
-	fileMetadata.rootDirectory = pathArr[0];
+	fileMetadata.parentPath = parentPath;
+	console.log(fileMetadata);
 	
 	const result = await Filenode.create(fileMetadata)
 	res.send(result)
