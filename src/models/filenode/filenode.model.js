@@ -9,6 +9,7 @@ const filenodeSchema = new Schema({
 	},
 	name: { type: String, required: true },
 	size: { type: Number },
+	contentType: { type: String, required: true },
 	timeCreated: {
 		type: String,
 		default: new Date().toISOString(),
