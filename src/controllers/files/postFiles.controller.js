@@ -14,7 +14,6 @@ const postFiles = async(req, res, next) => {
 	
 	// Assigning parent directory and root directory
 	fileMetadata.parentPath = parentPath;
-	console.log(fileMetadata);
 	
 	const result = await Filenode.create(fileMetadata)
 	res.send(result)
