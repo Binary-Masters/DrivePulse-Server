@@ -8,10 +8,12 @@ const server = http.createServer(app);
 const port = process.env.PORT || 3001;
 
 const main = async () => {
-	await conncectDB();
-	server.listen(port, () => {
-		console.log(`Drive pulse server is running on port ${port}`);
-	});
+  await conncectDB();
+  server.listen(port, () => {
+    console.log(
+      `Drive pulse server is running on port http://localhost:${port}`
+    );
+  });
 };
 
 main();
