@@ -8,12 +8,18 @@ const applyMiddleWares = require("./middlewares/applyMiddleWares");
 const benifitesRouter = require("./routes/BenifitesRoute/benifitesRouter");
 const pricingRouter = require("./routes/PricingRoute/pricingRouter");
 const filesRouter = require("./routes/FilesRoute/filesRouter");
+const usersRouter = require("./routes/UsersRouter/usersRouter");
+const userRoute = require("./routes/UserRoute/userRoute");
+const allUsersRoute = require("./routes/GetAllUsersRoute/getAllUsersRoute");  //importing getAllUsersRoute
 
 applyMiddleWares(app);
 
 app.use(benifitesRouter);
 app.use(pricingRouter);
 app.use(filesRouter);
+app.use(usersRouter);
+app.use(userRoute);
+app.use(allUsersRoute); //Calling allUserRoute
 
 app.get("/", async (req, res) => {
   res.send("Drive Pulse Server Is Running");
