@@ -4,6 +4,7 @@ const filenodeSchema = new Schema({
 	type: { type: String, required: true },
 	bucket: { type: String, required: true },
 	fullPath: {
+		// Points to cloud location ( must be synced with cloud )
 		type: String,
 		required: true,
 	},
@@ -21,7 +22,11 @@ const filenodeSchema = new Schema({
 		required: true,
 	},
 	rootDirectory: { type: String, required: true },
-	parentPath: { type: String, required: true },
+	parentPath: { 
+		// To mimic folder management system ( Changable )
+		type: String,
+		required: true
+	}, 
 });
 
 const Filenode = model("filenode", filenodeSchema);
