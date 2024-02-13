@@ -3,7 +3,6 @@ const convertMetadataToNode = require("../../utils/convertMetadataToNode");
 
 const postFiles = async(req, res, next) => {
 	const fileMetadata = req.body;
-	console.log(fileMetadata);
 	
 	const node = convertMetadataToNode(fileMetadata);
 	
