@@ -1,6 +1,8 @@
 const { Schema, model } = require("mongoose");
 
 const filenodeSchema = new Schema({
+	checksum: { type: String },
+	owner: { type: String },
 	type: { type: String, required: true },
 	bucket: { type: String, required: true },
 	fullPath: {
@@ -9,7 +11,7 @@ const filenodeSchema = new Schema({
 		required: true,
 	},
 	name: { type: String, required: true },
-	size: { type: Number },
+	size: { type: Number, required: true },
 	contentType: { type: String, required: true },
 	timeCreated: {
 		type: String,
