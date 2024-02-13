@@ -2,7 +2,10 @@ const { Schema, model } = require("mongoose");
 
 const filenodeSchema = new Schema({
 	checksum: { type: String },
-	owner: { type: String },
+	owner: {
+		uid: { type: String, required: true },
+		email: { type: String, required: true },
+	},
 	type: { type: String, required: true },
 	bucket: { type: String, required: true },
 	fullPath: {
@@ -24,11 +27,11 @@ const filenodeSchema = new Schema({
 		required: true,
 	},
 	rootDirectory: { type: String, required: true },
-	parentPath: { 
+	parentPath: {
 		// To mimic folder management system ( Changable )
 		type: String,
-		required: true
-	}, 
+		required: true,
+	},
 });
 
 const Filenode = model("filenode", filenodeSchema);
