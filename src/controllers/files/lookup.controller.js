@@ -4,8 +4,12 @@ const Filenode = require("../../models/filenode/filenode.model");
 // Ensures cloud and server synchronization
 const lookup = async(req, res, next) => {
 	const checksum = req.body.checksum;
+	const owner = req.body.owner;
 	
-	const query = { checksum };
+	const query = { 
+		checksum,
+		"owner.uid": owner.uid,
+	};
 	const result = await Filenode.exists(query);
 	
 	res.send({ exists: result ? true : false })
