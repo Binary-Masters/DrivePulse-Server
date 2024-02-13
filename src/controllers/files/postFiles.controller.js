@@ -1,21 +1,13 @@
 const Filenode = require("../../models/filenode/filenode.model");
+const convertMetadataToNode = require("../../utils/convertMetadataToNode");
 
 const postFiles = async(req, res, next) => {
 	const fileMetadata = req.body;
+	console.log(fileMetadata);
 	
-	// Spliting path string by directory
-	const pathArr = fileMetadata.fullPath.split("/")
-	fileMetadata.rootDirectory = pathArr[0] + "/";
+	const node = convertMetadataToNode(fileMetadata);
 	
-	pathArr.pop() // Removing current node
-	if(fileMetadata.type === "folder") pathArr.pop()
-	pathArr.push("")
-	const parentPath = pathArr.join("/");
-	
-	// Assigning parent directory and root directory
-	fileMetadata.parentPath = parentPath;
-	
-	const result = await Filenode.create(fileMetadata)
+	const result = await Filenode.create(node)
 	res.send(result)
 }
 
