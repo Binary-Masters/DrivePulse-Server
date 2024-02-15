@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.get("/files", getFiles);
 router.post("/files", postFiles);
+router.patch("/rename-file", postFiles);
 router.post("/files/lookup", lookup)
 router.delete("/files", deleteFiles);
 router.get('/get-search-files',getSearchFiles);
