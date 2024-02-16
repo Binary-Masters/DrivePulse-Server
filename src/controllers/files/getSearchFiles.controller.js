@@ -9,7 +9,8 @@ const getSearchFiles = async (req, res) => {
   const userId = data.userId;
   const filter = {
     "owner.uid": userId,
-    name: {$regex: new RegExp(searchText,'i')},
+    // name: {$regex: new RegExp(searchText,'i')},
+    name: searchText
   };
   const result = await Filenode.find(filter);
   res.send(result);
