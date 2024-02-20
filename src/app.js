@@ -10,7 +10,8 @@ const pricingRouter = require("./routes/PricingRoute/pricingRouter");
 const filesRouter = require("./routes/FilesRoute/filesRouter");
 const usersRouter = require("./routes/UsersRouter/usersRouter");
 const userRoute = require("./routes/UserRoute/userRoute");
-const allUsersRoute = require("./routes/GetAllUsersRoute/getAllUsersRoute");  //importing getAllUsersRoute
+const allUsersRoute = require("./routes/GetAllUsersRoute/getAllUsersRoute"); //importing getAllUsersRoute
+const deleteUserByUid = require("./routes/DeleteUserFromFirebase/deleteUserFromFirebase"); //delete user from firebase
 
 applyMiddleWares(app);
 
@@ -20,6 +21,7 @@ app.use(filesRouter);
 app.use(usersRouter);
 app.use(userRoute);
 app.use(allUsersRoute); //Calling allUserRoute
+app.use(deleteUserByUid);
 
 app.get("/", async (req, res) => {
   res.send("Drive Pulse Server Is Running");
