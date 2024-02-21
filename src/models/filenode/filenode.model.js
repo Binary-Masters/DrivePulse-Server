@@ -15,11 +15,7 @@ const filenodeSchema = new Schema({
     required: true,
   },
   name: { type: String, required: true },
-  thumbnail: {
-    type: String,
-    default: "",
-    required: false,
-  },
+  thumbnail: { type: String, required: false, default: "" },
   size: { type: Number, required: true },
   contentType: { type: String, required: true },
   timeCreated: {

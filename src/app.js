@@ -12,7 +12,8 @@ const usersRouter = require("./routes/UsersRouter/usersRouter");
 const userRoute = require("./routes/UserRoute/userRoute");
 const allUsersRoute = require("./routes/GetAllUsersRoute/getAllUsersRoute"); //importing getAllUsersRoute
 const deleteUserByUid = require("./routes/DeleteUserFromFirebase/deleteUserFromFirebase"); //delete user from firebase
-
+const chatRouter = require("./routes/ChatRouter/ChatRouter")
+const messageRoute = require("./routes/MessageRouter/MessageRouter")
 applyMiddleWares(app);
 
 app.use(benifitesRouter);
@@ -22,6 +23,8 @@ app.use(usersRouter);
 app.use(userRoute);
 app.use(allUsersRoute); //Calling allUserRoute
 app.use(deleteUserByUid);
+app.use(chatRouter);
+app.use(messageRoute)
 
 app.get("/", async (req, res) => {
   res.send("Drive Pulse Server Is Running");
