@@ -19,7 +19,7 @@ router.get('/single-user/:userId', GetSingleUser)
 router.put('/users',putUsers)
 
 
-router.get('/users', SimpleGetUser)
+// router.get('/users', SimpleGetUser)
 
 
 
