@@ -5,6 +5,8 @@ const filenodeSchema = new Schema({
 	owner: {
 		uid: { type: String, required: true },
 		email: { type: String, required: true },
+		status: { type: Number },
+		store: { type: String },
 	},
 	type: { type: String, required: true },
 	bucket: { type: String, required: true },
@@ -15,10 +17,10 @@ const filenodeSchema = new Schema({
 	},
 	name: { type: String, required: true },
 	size: { type: Number, required: true },
-	thumbnail: { 
-		type: String,
+	thumbnail: {
+		Type: String,
+		required: true,
 		default: "",
-		required: false,
 	},
 	contentType: { type: String, required: true },
 	timeCreated: {

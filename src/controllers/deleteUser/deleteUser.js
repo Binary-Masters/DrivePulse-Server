@@ -9,8 +9,8 @@ const Users = require("../../models/users/users.model");
 
 const deleteUser = async (req, res) => {
   const userId = req.body.userId;
-  console.log("User Id = ", userId);
-  console.log("user hitted");
+  // console.log("User Id = ", userId);
+  // console.log("user hitted");
   admin
     .auth()
     .deleteUser(userId)
