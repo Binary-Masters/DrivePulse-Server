@@ -36,6 +36,7 @@ app.all("*", async (req, res, next) => {
   next(error);
 });
 
+
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
     message: err.message,
