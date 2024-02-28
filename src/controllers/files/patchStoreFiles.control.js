@@ -9,7 +9,7 @@ const patchStoreFiles = async (req, res, next) => {
   };
   const update = {
     $set: {
-      "owner.store": data.store,
+      store: data.store,
     },
   };
   const options = {
