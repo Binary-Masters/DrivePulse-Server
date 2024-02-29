@@ -18,7 +18,7 @@ const filenodeSchema = new Schema({
 	name: { type: String, required: true },
 	size: { type: Number, required: true },
 	thumbnail: {
-		Type: String,
+		type: String,
 		required: true,
 		default: "",
 	},
