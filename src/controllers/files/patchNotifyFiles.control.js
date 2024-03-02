@@ -8,7 +8,7 @@ const patchNotifyFiles = async (req, res, next) => {
   };
   const update = {
     $set: {
-      "owner.status": 1,
+      status: 1,
     },
   };
   const options = {

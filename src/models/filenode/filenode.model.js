@@ -5,18 +5,22 @@ const filenodeSchema = new Schema({
   owner: {
     uid: { type: String, required: true },
     email: { type: String, required: true },
-    status: { type: Number, required: true },
   },
   type: { type: String, required: true },
   bucket: { type: String, required: true },
+  status: { type: Number, default: 0 },
+  store: { type: String, default: "Local" },
   fullPath: {
     // Points to cloud location ( must be synced with cloud )
     type: String,
     required: true,
   },
   name: { type: String, required: true },
-
   size: { type: Number, required: true },
+  thumbnail: {
+    type: String,
+    default: "",
+  },
   contentType: { type: String, required: true },
   timeCreated: {
     type: String,
