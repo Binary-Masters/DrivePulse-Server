@@ -46,13 +46,9 @@ const getUser = (userId) => {
   return users.find((user) => user.userId === userId) || null;
 };
 
-io.on("connection", (socket) => {
- 
-});
-
 
 io.on("connection", (socket) => {
-  
+
   socket.on("setup", (userData) => {
     socket.join(userData?._id);
     socket.emit("connected");
@@ -66,19 +62,16 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-    const receiver = getUser(receiverId);
+    // const receiver = getUser(receiverId);
     console.log(receiverId);
-    if (!receiver) {
+    if (!receiverId) {
       console.error("User not found with ID:", receiverId);
       socket.emit("errorMessage", "User not found. Please try again later.");
       return;
     }
 
     try {
-      io.to(receiver.socketId).emit("getMessage", {
-        senderId,
-        text,
-      });
+      socket.in(receiverId).emit("getMessage", {senderId, receiverId, text});
     } catch (error) {
       console.error("Error occurred while sending message:", error);
       socket.emit("errorMessage", "Failed to send message. Please try again later.");
