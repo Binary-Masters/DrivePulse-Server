@@ -1,7 +1,7 @@
 require("dotenv").config();
 const http = require("http");
 const app = require("./src/app");
-const conncectDB = require("./src/db/connectDB");
+const connectDB = require("./src/db/connectDB");
 const io = require("socket.io")({
   cors: {
     origin: [
@@ -16,47 +16,74 @@ const server = http.createServer(app);
 const port = process.env.PORT || 3001;
 
 const main = async () => {
-  await conncectDB();
-  server.listen(port, () => {
-    console.log(
-      `Drive pulse server is running on port http://localhost:${port}`
-    );
-  });
+  try {
+    await connectDB();
+    server.listen(port, () => {
+      console.log(`Drive pulse server is running on port http://localhost:${port}`);
+    });
 
-  let activeUsers = [];
+    let users = [];
 
-  io.on("connection", (socket) => {
-    // add new User
-    socket.on("new-user-add", (newUserId) => {
-      // if user is not added previously
-      if (!activeUsers.some((user) => user.userId === newUserId)) {
-        activeUsers.push({ userId: newUserId, socketId: socket.id });
-        console.log("New User Connected", activeUsers);
+    const addUser = (userId, socketId) => {
+      if (userId) {
+        if (!users.some((user) => user.userId === userId)) {
+          users.push({ userId, socketId });
+          console.log("users--", users);
+        } else {
+          console.error("User already exists:", userId);
+        }
+      } else {
+        console.error("Invalid userId:", userId);
       }
-      // send all active users to new user
-      //   console.log("connected user", activeUsers);
-      io.emit("get-users", activeUsers);
-    });
+    };
 
-    socket.on("disconnect", () => {
-      // remove user from active users
-      activeUsers = activeUsers.filter((user) => user.socketId !== socket.id);
-      console.log("User Disconnected", activeUsers);
-      // send all active users to all users
-      io.emit("get-users", activeUsers);
-    });
+    const removeUser = (socketId) => {
+      users = users.filter((user) => user.socketId !== socketId);
+    };
 
-    // send message to a specific user
-    socket.on("send-message", (data) => {
-      const { receiverId } = data;
-      const user = activeUsers.find((user) => user.userId === receiverId);
-      console.log("Sending from socket to :", receiverId);
-      console.log("Data: ", data);
-      if (user) {
-        io.to(user.socketId).emit("recieve-message", data);
-      }
+    const getUser = (userId) => {
+      return users.find((user) => user.userId === userId);
+    };
+
+    io.on("connection", (socket) => {
+      console.log("a user connected.");
+
+      socket.on("addUsers", (userId) => {
+        addUser(userId, socket.id);
+        io.emit("getUsers", users);
+      });
+
+      socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+        try {
+          const user = getUser(receiverId);
+          if (!user) {
+            throw new Error("User not found");
+          }
+          io.to(user.socketId).emit("getMessage", {
+            senderId,
+            text,
+          });
+        } catch (error) {
+          console.error("Error occurred while sending message:", error);
+          socket.emit("errorMessage", "Failed to send message. Please try again later.");
+        }
+      });
+
+      socket.on("disconnect", () => {
+        console.log("a user disconnected!");
+        removeUser(socket.id);
+        io.emit("getUsers", users);
+      });
+
+      socket.on("error", (error) => {
+        console.error("Socket error:", error);
+        // Handle socket errors
+      });
     });
-  });
+  } catch (error) {
+    console.error("Error occurred during startup:", error);
+    process.exit(1); // Exit with error status
+  }
 };
 
 main();

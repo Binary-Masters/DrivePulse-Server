@@ -1,4 +1,4 @@
-const addMessage = require("../../controllers/message/addMessage.controla.js");
+const addMessage = require("../../controllers/message/addMessage.controlar.js");
 const getMessages = require("../../controllers/message/getMessage.controller.js");
 
 const router = require("express").Router()
