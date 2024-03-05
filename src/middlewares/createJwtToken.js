@@ -7,7 +7,7 @@ const createJwtToken = async (req, res) => {
     expiresIn: "1h",
   });
   res
-    .cookie("token", token, {
+    .cookie("token",token, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
