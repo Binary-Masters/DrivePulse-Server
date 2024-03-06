@@ -31,33 +31,30 @@ const main = async () => {
 
   let users = [];
 
-const addUser = (userId, socketId) => {
-  if (userId !== null) {
-    !users.some((user) => user.userId === userId) &&
-      users.push({ userId, socketId });
-    console.log("users--", users);
-  } else {
-    console.error("Invalid userId:", userId);
-  }
-};
+  const addUser = (userId, socketId) => {
+    if (userId !== null) {
+      !users.some((user) => user.userId === userId) &&
+        users.push({ userId, socketId });
+      console.log("users--", users);
+    } else {
+      console.error("Invalid userId:", userId);
+    }
+  };
 
-const removeUser = (socketId) => {
-  users = users.filter((user) => user.socketId !== socketId);
-};
+  const removeUser = (socketId) => {
+    users = users.filter((user) => user.socketId !== socketId);
+  };
 
-// const getUser = (userId) => {
-//   return users.find((user) => user.userId === userId) || null;
-// };
+  const getUser = (userId) => {
+    return users.find((user) => user.userId === userId) || null;
+  };
 
-
-io.on("connection", (socket) => {
-
-  socket.on("setup", (userData) => {
-    socket.join(userData?._id);
-    socket.emit("connected");
-  }
-  )
-  socket.emit("connection-status"," a user connected.");
+  io.on("connection", (socket) => {
+    socket.on("setup", (userData) => {
+      socket.join(userData?._id);
+      socket.emit("connected");
+    });
+    socket.emit("connection-status", " a user connected.");
 
     socket.on("addUsers", (userId) => {
       addUser(userId, socket.id);
